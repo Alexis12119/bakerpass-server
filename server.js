@@ -18,6 +18,10 @@ const dbConfig = {
   password: process.env.DB_PASS || "YkDNEEbALidGFrDTlQthEFMQcKNWgyya",
   database: process.env.DB_NAME || "railway",
   port: process.env.DB_PORT || 33436,
+  queueLimit: 0,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 };
 
 // Create connection pool
