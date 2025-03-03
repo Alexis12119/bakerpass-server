@@ -8,11 +8,32 @@ const app = express();
 const PORT = 3001;
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://bakerpass-aqks.vercel.app",
+      "http://localhost:3000",
+      "http://localhost:5173",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  }),
+);
 app.use(bodyParser.json());
+// Simple health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok", message: "Server is running" });
+});
+
+// Add preflight for critical endpoints
+app.options("/api/visitors", cors());
+app.options("/api/visitors/:id/timeout", cors());
 
 // Database connection configuration
-const connectionString = process.env.DATABASE_URL || "mysql://root:YkDNEEbALidGFrDTlQthEFMQcKNWgyya@trolley.proxy.rlwy.net:33436/railway";
+const connectionString =
+  process.env.DATABASE_URL ||
+  "mysql://root:YkDNEEbALidGFrDTlQthEFMQcKNWgyya@trolley.proxy.rlwy.net:33436/railway";
 const pool = mysql.createPool(connectionString);
 
 // Initialize database and tables
