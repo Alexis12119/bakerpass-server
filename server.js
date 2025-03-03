@@ -21,16 +21,7 @@ app.use(
   }),
 );
 app.use(bodyParser.json());
-// Simple health check endpoint
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "ok", message: "Server is running" });
-});
 
-// Add preflight for critical endpoints
-app.options("/api/visitors", cors());
-app.options("/api/visitors/:id/timeout", cors());
-
-// Database connection configuration
 const connectionString =
   process.env.DATABASE_URL ||
   "mysql://root:YkDNEEbALidGFrDTlQthEFMQcKNWgyya@trolley.proxy.rlwy.net:33436/railway";
