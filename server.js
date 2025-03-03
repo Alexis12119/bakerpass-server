@@ -11,9 +11,10 @@ const PORT = 3001;
 app.use(
   cors({
     origin: [
-      "https://bakerpass-aqks.vercel.app",
-      "http://localhost:3000",
-      "http://localhost:5173",
+      // "https://bakerpass-aqks.vercel.app",
+      "*"
+      // "http://localhost:3000",
+      // "http://localhost:5173",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -22,10 +23,16 @@ app.use(
 );
 app.use(bodyParser.json());
 
-const connectionString =
-  process.env.DATABASE_URL ||
-  "mysql://root:YkDNEEbALidGFrDTlQthEFMQcKNWgyya@trolley.proxy.rlwy.net:33436/railway";
-const pool = mysql.createPool(connectionString);
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || "trolley.proxy.rlwy.net",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASS || "YkDNEEbALidGFrDTlQthEFMQcKNWgyya",
+  database: process.env.DB_NAME || "railway",
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 33436,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
 // Initialize database and tables
 // async function initializeDatabase() {
