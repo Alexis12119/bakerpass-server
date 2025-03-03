@@ -154,7 +154,7 @@ app.put("/api/visitors/:id/timeout", async (req, res) => {
 
 // Start server
 async function startServer() {
-  await initializeDatabase();
+  // await initializeDatabase();
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
