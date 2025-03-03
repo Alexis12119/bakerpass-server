@@ -242,4 +242,4 @@ async function seedDatabase() {
 }
 
 // Call the seed function after a delay to ensure database is initialized
-setTimeout(seedDatabase, 2000);
+// setTimeout(seedDatabase, 2000);
