@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: [
       // "https://bakerpass-aqks.vercel.app",
-      "*"
+      "*",
       // "http://localhost:3000",
       // "http://localhost:5173",
     ],
